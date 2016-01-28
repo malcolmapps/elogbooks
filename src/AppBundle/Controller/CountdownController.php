@@ -47,6 +47,17 @@ class CountdownController extends Controller {
 
 }
 
+
+/*
+ * Logic for the Countdown solver is derived from the C code written by
+ *  James Stanley at jez.xxx
+ *
+ * https://github.com/jes/cntdn.git
+ *
+ * The old/ directory contains various bits of python, perl and C.
+ *
+ */
+
 define('DIV', 0);
 define('MUL', 1);
 define('ADD', 2);

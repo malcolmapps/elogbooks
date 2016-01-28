@@ -1,0 +1,11 @@
+<h1>Countdown</h1>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Solve It!" />
+{{ form_end(form) }}
+
+{% for solutionLine in solutionList %}
+    <li>{{ solutionLine }}</li>
+{% endfor %}

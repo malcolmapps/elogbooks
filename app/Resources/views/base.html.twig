@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Countdown numbers solver{% endblock %}</title>
+    </head>
+    <body>
+        {% block body %}
+            <form action="/countdown/getfile" method=post>
+                Select a file:<input type="file" name="numbers_file" /><br />
+                Target value:<input type="text" name="trget_value" /><br />
+                <input type=submit value="Solve it" />
+            </form>        
+        {% endblock %}
+    </body>
+</html>

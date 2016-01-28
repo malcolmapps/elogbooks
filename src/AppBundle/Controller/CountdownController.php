@@ -39,7 +39,7 @@ class CountdownController extends Controller {
 	    $numbers = fgetcsv(fopen($dir . $name, 'r'));
 	    $solution = new CountdownSolver($target, $numbers);
 	    $solutionList = $solution->getAnswer();
-	    $solutionList[] = sprintf("Derived from %s", implode(',', $numbers));
+	    $solutionList[] = sprintf("Numbers %s", implode(',', $numbers));
 	}
 
 	return $this->render('Countdown/index.html.twig', array('form' => $form->createView(), 'solutionList' => $solutionList));
@@ -75,6 +75,9 @@ class CountdownSolver {
 
     public function getAnswer() {
 	krsort($this->finalAnswer);
+	if(sizeOf($this->finalAnswer) == 0) {
+    	    $this->finalAnswer[] = "No solution";
+	}
 	return $this->finalAnswer;
     }
 
@@ -102,58 +105,68 @@ class CountdownSolver {
 					return true;
 				    }
 				    if ($this->findAnswer($numbers, $myans)) {
-					if ($answer != 0)
+					if ($answer != 0) {
 					    $this->finalAnswer[] = sprintf("%d / %d = %d", $answer, $this->numberList[$i], $myans);
+					}
 					return true;
 				    }
 				}
 				$this->used[$i] = 0;
 			    }
 			    break;
+
 			case MUL:
 			    $myans = $answer;
 			    $myans *= $this->numberList[$i];
 			    $this->used[$i] = 1;
 			    if ($myans == $this->target) {
-				if ($answer != 0)
+				if ($answer != 0) {
 				    $this->finalAnswer[] = sprintf("%d * %d = %d", $answer, $this->numberList[$i], $myans);
+				}
 				return true;
 			    }
 			    if ($this->findAnswer($numbers, $myans)) {
-				if ($answer != 0)
+				if ($answer != 0) {
 				    $this->finalAnswer[] = sprintf("%d * %d = %d", $answer, $this->numberList[$i], $myans);
+				}
 				return true;
 			    }
 			    $this->used[$i] = 0;
 			    break;
+
 			case ADD:
 			    $myans = $answer;
 			    $myans += $this->numberList[$i];
 			    $this->used[$i] = 1;
 			    if ($myans == $this->target) {
-				if ($answer != 0)
+				if ($answer != 0) {
 				    $this->finalAnswer[] = sprintf("%d + %d = %d", $answer, $this->numberList[$i], $myans);
+				}
 				return true;
 			    }
 			    if ($this->findAnswer($numbers, $myans)) {
-				if ($answer != 0)
+				if ($answer != 0) {
 				    $this->finalAnswer[] = sprintf("%d + %d = %d", $answer, $this->numberList[$i], $myans);
+				}
 				return true;
 			    }
 			    $this->used[$i] = 0;
 			    break;
+
 			case SUB:
 			    $myans = $answer;
 			    $myans -= $this->numberList[$i];
 			    $this->used[$i] = 1;
 			    if ($myans == $this->target) {
-				if ($answer != 0)
+				if ($answer != 0) {
 				    $this->finalAnswer[] = sprintf("%d - %d = %d", $answer, $this->numberList[$i], $myans);
+				}
 				return true;
 			    }
 			    if ($this->findAnswer($numbers, $myans)) {
-				if ($answer != 0)
+				if ($answer != 0) {
 				    $this->finalAnswer[] = sprintf("%d - %d = %d", $answer, $this->numberList[$i], $myans);
+				}
 				return true;
 			    }
 			    $this->used[$i] = 0;
